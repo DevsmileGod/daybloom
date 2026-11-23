@@ -60,5 +60,10 @@ function generateMockUserData(): MockUserData {
     cancelAtPeriodEnd:
       subscriptionStatus === SubscriptionStatus.Active &&
       faker.datatype.boolean(),
+    timeZone: "UTC",
+    workdayStartMinutes: 9 * 60,
+    emailRemindersEnabled: false,
+    reminderLeadMinutes: 10,
+    calendarFeedToken: null,
   };
 }

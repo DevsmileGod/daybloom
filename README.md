@@ -62,8 +62,9 @@ Maintained by Mitchell Gray &lt;godsmilerxiaomin@proton.me&gt;.
 ### Prerequisites
 
 - Node.js `26.13.1` (see `.nvmrc`)
-- [Wasp CLI](https://wasp.sh/docs/quick-start) 0.27. Until 0.27 is released, install the development build with
-  `npm install -g https://pkg.pr.new/@wasp/cli@main`. On Windows, Wasp runs inside
+- [Wasp CLI](https://wasp.sh/docs/quick-start) 0.27. Until 0.27 is released, install this development build
+  (newer builds changed `HttpError` and are not compatible yet) with
+  `npm install -g https://pkg.pr.new/@wasp/cli@135902f`. On Windows, Wasp runs inside
   [WSL](https://learn.microsoft.com/windows/wsl/install).
 - Docker (used by `wasp start db` to run a local PostgreSQL database)
 

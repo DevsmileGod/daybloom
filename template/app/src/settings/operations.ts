@@ -12,14 +12,14 @@ import {
 } from "../reminders/reminders";
 import { ensureArgsSchemaOrThrowHttpError } from "../server/validation";
 
-export interface PlannerSettings {
+export type PlannerSettings = {
   timeZone: string;
   workdayStartMinutes: number;
   emailRemindersEnabled: boolean;
   reminderLeadMinutes: number;
   /** Email reminders need an email address on the account. */
   hasEmail: boolean;
-}
+};
 
 const settingsSelect = {
   timeZone: true,

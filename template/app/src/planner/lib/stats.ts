@@ -1,20 +1,20 @@
 import { addDaysToDateKey, type DateKey } from "./dates";
 import { comparePriorities } from "./scheduling";
 
-export interface StatsStep {
+export type StatsStep = {
   taskName: string;
   taskPriority: string;
   plannedMinutes: number;
   actualMinutes: number;
   isDone: boolean;
-}
+};
 
-export interface StatsPlan {
+export type StatsPlan = {
   date: DateKey;
   steps: StatsStep[];
-}
+};
 
-export interface PlanSummary {
+export type PlanSummary = {
   totalSteps: number;
   doneSteps: number;
   plannedMinutes: number;
@@ -22,7 +22,7 @@ export interface PlanSummary {
   trackedMinutes: number;
   /** 0..1, share of steps marked done. 0 for an empty plan. */
   completionRate: number;
-}
+};
 
 export function summarizeSteps(steps: StatsStep[]): PlanSummary {
   let doneSteps = 0;
@@ -47,27 +47,27 @@ export function summarizeSteps(steps: StatsStep[]): PlanSummary {
   };
 }
 
-export interface DayStats extends PlanSummary {
+export type DayStats = PlanSummary & {
   date: DateKey;
   planCount: number;
-}
+};
 
-export interface PriorityStats {
+export type PriorityStats = {
   priority: string;
   totalSteps: number;
   doneSteps: number;
   completionRate: number;
-}
+};
 
-export interface TaskTimeStats {
+export type TaskTimeStats = {
   taskName: string;
   plannedMinutes: number;
   trackedMinutes: number;
   doneSteps: number;
   totalSteps: number;
-}
+};
 
-export interface PeriodStats {
+export type PeriodStats = {
   days: DayStats[];
   totals: PlanSummary;
   byPriority: PriorityStats[];
@@ -80,7 +80,7 @@ export interface PeriodStats {
   estimateRatio: number | null;
   /** Days in the period where at least one step was finished. */
   activeDays: number;
-}
+};
 
 /**
  * Aggregates plans into per-day and whole-period statistics.
