@@ -1,6 +1,5 @@
-import OpenAI from "openai";
 import type { GptResponse, Task } from "wasp/entities";
-import { env, HttpError } from "wasp/server";
+import { HttpError } from "wasp/server";
 import type {
   CreateTask,
   DeleteTask,
@@ -10,11 +9,10 @@ import type {
   UpdateTask,
 } from "wasp/server/operations";
 import * as z from "zod";
-import { hasActiveSubscription } from "../payment/plans";
+import { withCreditCharge } from "../payment/credits";
 import { ensureArgsSchemaOrThrowHttpError } from "../server/validation";
-import { GeneratedSchedule, generatedScheduleSchema } from "./schedule";
-
-const openAi = new OpenAI({ apiKey: env.OPENAI_API_KEY });
+import { generateScheduleWithGpt } from "./gpt";
+import type { GeneratedSchedule } from "./schedule";
 
 //#region Actions
 const generateGptResponseInputSchema = z.object({
@@ -40,29 +38,13 @@ export const generateGptResponse: GenerateGptResponse<
   );
 
   // Users without an active subscription pay one credit per generated plan.
-  // We reserve the credit before calling OpenAI, so users without credits
-  // never reach it. The conditional update is atomic, which stops concurrent
-  // requests from spending more credits than the user has.
-  // If anything fails afterwards, we refund the credit.
-  const shouldChargeCredit = !hasActiveSubscription(context.user);
-  if (shouldChargeCredit) {
-    const { count: reservedCredits } = await context.entities.User.updateMany({
-      where: { id: context.user.id, credits: { gt: 0 } },
-      data: { credits: { decrement: 1 } },
-    });
-    if (reservedCredits === 0) {
-      throw new HttpError(
-        402,
-        "User has no subscription and is out of credits",
-      );
-    }
-  }
-
-  try {
+  // See `withCreditCharge` for how credits are reserved and refunded.
+  const user = context.user;
+  return withCreditCharge(user, context.entities.User, async () => {
     const tasks = await context.entities.Task.findMany({
       where: {
         user: {
-          id: context.user.id,
+          id: user.id,
         },
       },
     });
@@ -78,21 +60,13 @@ export const generateGptResponse: GenerateGptResponse<
 
     await context.entities.GptResponse.create({
       data: {
-        user: { connect: { id: context.user.id } },
+        user: { connect: { id: user.id } },
         content: JSON.stringify(generatedSchedule),
       },
     });
 
     return generatedSchedule;
-  } catch (error) {
-    if (shouldChargeCredit) {
-      await context.entities.User.update({
-        where: { id: context.user.id },
-        data: { credits: { increment: 1 } },
-      });
-    }
-    throw error;
-  }
+  });
 };
 
 const createTaskInputSchema = z.object({
@@ -230,55 +204,3 @@ export const getAllTasksByUser: GetAllTasksByUser<void, Task[]> = async (
 };
 //#endregion
 
-async function generateScheduleWithGpt(
-  tasks: Task[],
-  hours: number,
-): Promise<GeneratedSchedule | null> {
-  const parsedTasks = tasks.map(({ description, time }) => ({
-    description,
-    time,
-  }));
-
-  const completion = await openAi.chat.completions.create({
-    model: "gpt-6-luna",
-    reasoning_effort: "none",
-    messages: [
-      {
-        role: "system",
-        content:
-          "you are an expert daily planner. you will be given a list of main tasks and an estimated time to complete each task. You will also receive the total amount of hours to be worked that day. Your job is to return a detailed plan of how to achieve those tasks by breaking each task down into at least 3 subtasks each. MAKE SURE TO ALWAYS CREATE AT LEAST 3 SUBTASKS FOR EACH MAIN TASK PROVIDED BY THE USER! YOU WILL BE REWARDED IF YOU DO.",
-      },
-      {
-        role: "user",
-        content: `I will work ${hours} hours today. Here are the tasks I have to complete: ${JSON.stringify(
-          parsedTasks,
-        )}. Please help me plan my day by breaking the tasks down into actionable subtasks with time and priority status.`,
-      },
-    ],
-    tools: [
-      {
-        type: "function",
-        function: {
-          name: "parseTodaysSchedule",
-          description: "parses the days tasks and returns a schedule",
-          parameters: z.toJSONSchema(generatedScheduleSchema),
-        },
-      },
-    ],
-    tool_choice: {
-      type: "function",
-      function: {
-        name: "parseTodaysSchedule",
-      },
-    },
-    temperature: 1,
-  });
-
-  const gptResponse = completion.choices[0].message.tool_calls?.find(
-    (call) => call.type === "function",
-  )?.function.arguments;
-
-  return gptResponse !== undefined
-    ? generatedScheduleSchema.parse(JSON.parse(gptResponse))
-    : null;
-}
