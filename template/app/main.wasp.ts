@@ -8,6 +8,7 @@ import {
 } from "./src/env" with { type: "ref" };
 import { LandingPage } from "./src/landing-page/LandingPage" with { type: "ref" };
 import { seedMockUsers } from "./src/server/scripts/dbSeeds" with { type: "ref" };
+import { seedDemoPlanner } from "./src/server/scripts/demoPlannerSeed" with { type: "ref" };
 
 import { adminSpec } from "./src/admin/admin.wasp";
 import { analyticsSpec } from "./src/analytics/analytics.wasp";
@@ -36,6 +37,8 @@ export default app({
     seeds: [
       // Populates the database with a bunch of fake users to work with during development.
       seedMockUsers,
+      // Fills one account with demo plans, tasks and routines: `wasp db seed seedDemoPlanner`.
+      seedDemoPlanner,
     ],
   },
   client: {
