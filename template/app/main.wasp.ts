@@ -17,6 +17,7 @@ import { demoAiAppSpec } from "./src/demo-ai-app/demo-ai-app.wasp";
 import { fileUploadSpec } from "./src/file-upload/file-upload.wasp";
 import { paymentSpec } from "./src/payment/payment.wasp";
 import { plannerSpec } from "./src/planner/planner.wasp";
+import { recurringSpec } from "./src/recurring/recurring.wasp";
 import { emailSender } from "./src/server/emailSender.wasp";
 import { settingsSpec } from "./src/settings/settings.wasp";
 import { userSpec } from "./src/user/user.wasp";
@@ -51,6 +52,7 @@ export default app({
     userSpec,
     demoAiAppSpec,
     plannerSpec,
+    recurringSpec,
     settingsSpec,
     paymentSpec,
     fileUploadSpec,
