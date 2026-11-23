@@ -29,8 +29,8 @@ import {
 
 const emailAuthMethod: EmailAuthConfig = {
   fromField: {
-    name: "Open SaaS App",
-    email: "me@example.com",
+    name: "Daybloom",
+    email: "godsmilerxiaomin@proton.me",
   },
   emailVerification: {
     clientRoute: "EmailVerificationRoute",

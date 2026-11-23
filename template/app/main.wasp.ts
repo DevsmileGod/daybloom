@@ -22,7 +22,7 @@ import { userSpec } from "./src/user/user.wasp";
 export default app({
   name: "OpenSaaS",
   wasp: { version: "^0.27.0" },
-  title: "My Open SaaS App",
+  title: "Daybloom – AI Daily Planner",
   head,
   auth: authConfig,
   db: {
