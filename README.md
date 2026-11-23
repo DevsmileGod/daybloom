@@ -61,8 +61,9 @@ Maintained by Mitchell Gray &lt;godsmilerxiaomin@proton.me&gt;.
 
 ### Prerequisites
 
-- Node.js `24.22.1` (see `.nvmrc`)
-- [Wasp CLI](https://wasp.sh/docs/quick-start) `^0.27.0`. On Windows, Wasp runs inside
+- Node.js `26.13.1` (see `.nvmrc`)
+- [Wasp CLI](https://wasp.sh/docs/quick-start) 0.27. Until 0.27 is released, install the development build with
+  `npm install -g https://pkg.pr.new/@wasp/cli@main`. On Windows, Wasp runs inside
   [WSL](https://learn.microsoft.com/windows/wsl/install).
 - Docker (used by `wasp start db` to run a local PostgreSQL database)
 
@@ -75,15 +76,22 @@ cd template/app
 cp .env.server.example .env.server
 cp .env.client.example .env.client
 
-# 2. Start the database (leave it running in its own terminal)
+# 2. Install npm dependencies (first run, or after package.json changes)
+wasp install
+
+# 3. Start the database (leave it running in its own terminal)
 wasp start db
 
-# 3. In a new terminal, apply database migrations (first run, or after schema changes)
+# 4. In a new terminal, apply database migrations (first run, or after schema changes)
 wasp db migrate-dev
 
-# 4. Start the app
+# 5. Start the app
 wasp start
 ```
+
+No Docker? Install PostgreSQL yourself and add
+`DATABASE_URL=postgresql://user:password@localhost:5432/dbname` to `.env.server` instead of
+running `wasp start db`.
 
 The app runs at http://localhost:3000. Emails are not actually sent in development (the `Dummy`
 provider is used), so check the server logs for verification and password-reset links.
