@@ -17,10 +17,22 @@ import {
   updatePlanNote,
   updatePlanStep,
 } from "./operations" with { type: "ref" };
+import { PlanDetailPage } from "./PlanDetailPage" with { type: "ref" };
+import { PlanHistoryPage } from "./PlanHistoryPage" with { type: "ref" };
 import { PlannerPage } from "./PlannerPage" with { type: "ref" };
 
 export const plannerSpec: Spec = [
   route("PlannerRoute", "/planner", page(PlannerPage, { authRequired: true })),
+  route(
+    "PlanHistoryRoute",
+    "/plans",
+    page(PlanHistoryPage, { authRequired: true }),
+  ),
+  route(
+    "PlanDetailRoute",
+    "/plans/:planId",
+    page(PlanDetailPage, { authRequired: true }),
+  ),
 
   query(getPlanForDate, { entities: ["Plan", "PlanStep"] }),
   query(getPlanById, { entities: ["Plan", "PlanStep"] }),
