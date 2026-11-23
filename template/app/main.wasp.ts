@@ -23,6 +23,7 @@ import { remindersSpec } from "./src/reminders/reminders.wasp";
 import { emailSender } from "./src/server/emailSender.wasp";
 import { settingsSpec } from "./src/settings/settings.wasp";
 import { userSpec } from "./src/user/user.wasp";
+import { workspacesSpec } from "./src/workspaces/workspaces.wasp";
 
 export default app({
   name: "OpenSaaS",
@@ -58,6 +59,7 @@ export default app({
     remindersSpec,
     calendarExportSpec,
     settingsSpec,
+    workspacesSpec,
     paymentSpec,
     fileUploadSpec,
     analyticsSpec,
