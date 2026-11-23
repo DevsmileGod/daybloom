@@ -1,4 +1,4 @@
-import { action, query, type Spec } from "@wasp/spec";
+import { action, page, query, route, type Spec } from "@wasp/spec";
 
 import {
   addPlanStep,
@@ -17,8 +17,11 @@ import {
   updatePlanNote,
   updatePlanStep,
 } from "./operations" with { type: "ref" };
+import { PlannerPage } from "./PlannerPage" with { type: "ref" };
 
 export const plannerSpec: Spec = [
+  route("PlannerRoute", "/planner", page(PlannerPage, { authRequired: true })),
+
   query(getPlanForDate, { entities: ["Plan", "PlanStep"] }),
   query(getPlanById, { entities: ["Plan", "PlanStep"] }),
   query(getPlans, { entities: ["Plan", "PlanStep"] }),
