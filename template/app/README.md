@@ -1,4 +1,6 @@
-# <YOUR_APP_NAME>
+# Daybloom
+
+An AI daily planner that turns your to-do list into a realistic, prioritized schedule.
 
 Built with [Wasp](https://wasp.sh), based on the [Open Saas](https://opensaas.sh) template.
 

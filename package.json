@@ -1,6 +1,8 @@
 {
   "name": "wasp-repo",
   "type": "module",
+  "license": "MIT",
+  "author": "Mitchell Gray <godsmilerxiaomin@proton.me>",
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",

@@ -1,6 +1,6 @@
-# <YOUR_APP_NAME>
+# Daybloom
 
-This project is based on [Open Saas](https://opensaas.sh) template and consists of three main dirs:
+Daybloom is an AI daily planner. This project is based on the [Open Saas](https://opensaas.sh) template and consists of three main dirs:
 
 1. `app` - Your web app, built with [Wasp](https://wasp.sh).
 2. `e2e-tests` - [Playwright](https://playwright.dev/) tests for your Wasp web app.
