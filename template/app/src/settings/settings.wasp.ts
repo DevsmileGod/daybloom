@@ -7,7 +7,11 @@ import {
 import { SettingsPage } from "./SettingsPage" with { type: "ref" };
 
 export const settingsSpec: Spec = [
-  route("SettingsRoute", "/settings", page(SettingsPage, { authRequired: true })),
+  route(
+    "SettingsRoute",
+    "/settings",
+    page(SettingsPage, { authRequired: true }),
+  ),
   query(getPlannerSettings, { entities: ["User"] }),
   action(updatePlannerSettings, { entities: ["User"] }),
 ];

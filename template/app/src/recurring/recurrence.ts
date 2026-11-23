@@ -55,7 +55,10 @@ export function describeRecurrence(rule: RecurrenceRule): string {
       if (days.length === 0) return "Never (no days selected)";
       if (days.length === 7) return "Every day";
       // Show Monday first, the way most people read a week.
-      const mondayFirst = [...days.filter((day) => day !== 0), ...days.filter((day) => day === 0)];
+      const mondayFirst = [
+        ...days.filter((day) => day !== 0),
+        ...days.filter((day) => day === 0),
+      ];
       return `Every ${mondayFirst.map((day) => SHORT_DAY_NAMES[day]).join(", ")}`;
     }
     default:

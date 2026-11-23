@@ -62,8 +62,9 @@ export function TemplatesSection() {
     error,
     refetch,
   } = useQuery(getPlanTemplates);
-  const [editorTarget, setEditorTarget] =
-    useState<TemplateEditorTarget | null>(null);
+  const [editorTarget, setEditorTarget] = useState<TemplateEditorTarget | null>(
+    null,
+  );
   const [isSaveCurrentOpen, setIsSaveCurrentOpen] = useState(false);
   const [deleting, setDeleting] = useState<TemplateWithItems | null>(null);
   const [applyingId, setApplyingId] = useState<string | null>(null);
@@ -167,7 +168,9 @@ export function TemplatesSection() {
               <li key={template.id}>
                 <Card className="flex h-full flex-col">
                   <CardHeader className="pb-3">
-                    <CardTitle className="break-words">{template.name}</CardTitle>
+                    <CardTitle className="break-words">
+                      {template.name}
+                    </CardTitle>
                     <p className="text-muted-foreground text-sm">
                       {pluralizeTasks(template.items.length)} ·{" "}
                       {formatDuration(totalMinutes)}
@@ -313,8 +316,8 @@ function SaveCurrentTasksForm({ onDone }: { onDone: () => void }) {
       <DialogHeader>
         <DialogTitle>Save my current tasks as a template</DialogTitle>
         <DialogDescription>
-          All tasks that are still open on your task list are saved, so you
-          can add them again on another day.
+          All tasks that are still open on your task list are saved, so you can
+          add them again on another day.
         </DialogDescription>
       </DialogHeader>
       <div className="grid gap-2">

@@ -21,7 +21,11 @@ const schedule: GeneratedSchedule = {
     { taskName: "Read a book", description: "Read chapter 1", time: 0.5 },
     { taskName: "Respond to emails", description: "Triage inbox", time: 0.25 },
     { taskName: "Write report", description: "Outline", time: 1 },
-    { taskName: "Respond to emails", description: "Reply to urgent", time: 0.5 },
+    {
+      taskName: "Respond to emails",
+      description: "Reply to urgent",
+      time: 0.5,
+    },
     { taskName: "Stretch", description: "Quick stretch", time: 0.01 },
   ],
 };
@@ -47,7 +51,9 @@ describe("buildStepsFromSchedule", () => {
   });
 
   it("converts hours to minutes with a sensible minimum", () => {
-    expect(steps.map((step) => step.plannedMinutes)).toEqual([15, 30, 60, 30, 5]);
+    expect(steps.map((step) => step.plannedMinutes)).toEqual([
+      15, 30, 60, 30, 5,
+    ]);
   });
 
   it("keeps steps for tasks the AI forgot to list, as medium priority", () => {

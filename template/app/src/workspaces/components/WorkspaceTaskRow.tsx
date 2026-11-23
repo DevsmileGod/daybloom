@@ -29,12 +29,7 @@ import { canEditWorkspaceTask } from "../permissions";
 import { AssigneeSelect } from "./AssigneeSelect";
 import { ConfirmDialog } from "./ConfirmDialog";
 import { EditWorkspaceTaskDialog } from "./EditWorkspaceTaskDialog";
-import {
-  formatDueDate,
-  formatHours,
-  getUserLabel,
-  isOverdue,
-} from "./format";
+import { formatDueDate, formatHours, getUserLabel, isOverdue } from "./format";
 
 export function WorkspaceTaskRow({
   task,

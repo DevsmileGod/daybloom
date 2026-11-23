@@ -16,7 +16,11 @@ import {
 import { RoutinesPage } from "./RoutinesPage" with { type: "ref" };
 
 export const recurringSpec: Spec = [
-  route("RoutinesRoute", "/routines", page(RoutinesPage, { authRequired: true })),
+  route(
+    "RoutinesRoute",
+    "/routines",
+    page(RoutinesPage, { authRequired: true }),
+  ),
 
   query(getRecurringTasks, { entities: ["RecurringTask"] }),
   action(createRecurringTask, { entities: ["RecurringTask"] }),
@@ -28,8 +32,12 @@ export const recurringSpec: Spec = [
   action(createPlanTemplate, {
     entities: ["PlanTemplate", "PlanTemplateItem", "Task"],
   }),
-  action(updatePlanTemplate, { entities: ["PlanTemplate", "PlanTemplateItem"] }),
-  action(deletePlanTemplate, { entities: ["PlanTemplate", "PlanTemplateItem"] }),
+  action(updatePlanTemplate, {
+    entities: ["PlanTemplate", "PlanTemplateItem"],
+  }),
+  action(deletePlanTemplate, {
+    entities: ["PlanTemplate", "PlanTemplateItem"],
+  }),
   action(applyPlanTemplate, {
     entities: ["PlanTemplate", "PlanTemplateItem", "Task"],
   }),

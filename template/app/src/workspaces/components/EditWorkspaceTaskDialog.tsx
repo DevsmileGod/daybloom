@@ -65,9 +65,7 @@ function EditWorkspaceTaskForm({
   const formId = useId();
   const [description, setDescription] = useState(task.description);
   const [hours, setHours] = useState(task.time);
-  const [assigneeId, setAssigneeId] = useState<string | null>(
-    task.assigneeId,
-  );
+  const [assigneeId, setAssigneeId] = useState<string | null>(task.assigneeId);
   const [dueDate, setDueDate] = useState(task.dueDate ?? "");
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState<string | null>(null);

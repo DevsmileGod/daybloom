@@ -113,8 +113,8 @@ export function InvitesPanel({
           Invites
         </CardTitle>
         <CardDescription>
-          Invite people by email. Links expire after {INVITE_VALIDITY_DAYS}{" "}
-          days and only work for the address they were sent to.
+          Invite people by email. Links expire after {INVITE_VALIDITY_DAYS} days
+          and only work for the address they were sent to.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -132,9 +132,7 @@ export function InvitesPanel({
               disabled={isFull}
               aria-invalid={showEmailError && !emailIsValid}
               aria-describedby={
-                showEmailError && !emailIsValid
-                  ? `${inputId}-error`
-                  : undefined
+                showEmailError && !emailIsValid ? `${inputId}-error` : undefined
               }
               onChange={(event) => setEmail(event.currentTarget.value)}
             />

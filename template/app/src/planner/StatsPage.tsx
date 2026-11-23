@@ -20,11 +20,7 @@ import {
 } from "../client/components/ui/card";
 import { Progress } from "../client/components/ui/progress";
 import { cn } from "../client/utils";
-import {
-  EmptyState,
-  ErrorState,
-  LoadingState,
-} from "./components/PageStates";
+import { EmptyState, ErrorState, LoadingState } from "./components/PageStates";
 import { PriorityBadge } from "./components/PriorityBadge";
 import { usePlannerTimeZone } from "./hooks/usePlannerTimeZone";
 import {
@@ -371,8 +367,7 @@ function ChartBar({
   const completedHeight = (day.completedPlannedMinutes / maxMinutes) * 100;
 
   return (
-    <div
-      className="group relative flex h-full min-w-0 flex-1 items-end justify-center">
+    <div className="group relative flex h-full min-w-0 flex-1 items-end justify-center">
       <div
         className={cn(
           "relative h-full w-full max-w-10",
@@ -396,8 +391,8 @@ function ChartBar({
         <p className="font-medium">{formatDateKey(day.date)}</p>
         <p className="text-muted-foreground">
           {formatDuration(day.completedPlannedMinutes)} /{" "}
-          {formatDuration(day.plannedMinutes)} ·{" "}
-          {day.doneSteps}/{day.totalSteps} steps
+          {formatDuration(day.plannedMinutes)} · {day.doneSteps}/
+          {day.totalSteps} steps
         </p>
       </div>
     </div>

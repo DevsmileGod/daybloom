@@ -357,7 +357,8 @@ export const inviteToWorkspace: InviteToWorkspace<
     );
   }
   const isAlreadyMember = workspace.members.some(
-    (member) => member.user.email && normalizeEmail(member.user.email) === email,
+    (member) =>
+      member.user.email && normalizeEmail(member.user.email) === email,
   );
   if (isAlreadyMember) {
     throw new HttpError(400, "That person is already in this workspace");
@@ -453,8 +454,7 @@ export const getWorkspaceInvite: GetWorkspaceInvite<
     invitedBy: displayName(invite.invitedBy),
     email: invite.email,
     status: getInviteStatus(invite),
-    emailMatches:
-      !!user.email && normalizeEmail(user.email) === invite.email,
+    emailMatches: !!user.email && normalizeEmail(user.email) === invite.email,
     alreadyMember: !!membership,
   };
 };
@@ -652,7 +652,11 @@ export const createWorkspaceTask: CreateWorkspaceTask<
   const user = requireUser(context.user);
   const { workspaceId, description, time, assigneeId, dueDate } =
     ensureArgsSchemaOrThrowHttpError(createWorkspaceTaskInputSchema, rawArgs);
-  await requireMembership(context.entities.WorkspaceMember, workspaceId, user.id);
+  await requireMembership(
+    context.entities.WorkspaceMember,
+    workspaceId,
+    user.id,
+  );
   await assertAssigneeIsMember(
     context.entities.WorkspaceMember,
     workspaceId,

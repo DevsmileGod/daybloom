@@ -50,7 +50,8 @@ export function buildStepsFromSchedule(
     .map((task, index) => ({ task, index }))
     .sort(
       (a, b) =>
-        comparePriorities(a.task.priority, b.task.priority) || a.index - b.index,
+        comparePriorities(a.task.priority, b.task.priority) ||
+        a.index - b.index,
     )
     .map(({ task }) => task);
 
@@ -71,7 +72,9 @@ export function buildStepsFromSchedule(
   for (const task of orderedTasks) {
     for (const item of schedule.taskItems) {
       if (item.taskName === task.name) {
-        steps.push(toDraft(task.name, task.priority, item.description, item.time));
+        steps.push(
+          toDraft(task.name, task.priority, item.description, item.time),
+        );
       }
     }
   }
@@ -163,7 +166,8 @@ export function layoutOverlappingSteps<T extends TimedStep>(
   steps: T[],
 ): LaidOutStep<T>[] {
   const sorted = [...steps].sort(
-    (a, b) => a.startMinute - b.startMinute || b.plannedMinutes - a.plannedMinutes,
+    (a, b) =>
+      a.startMinute - b.startMinute || b.plannedMinutes - a.plannedMinutes,
   );
   const result: LaidOutStep<T>[] = [];
   let cluster: { step: T; column: number }[] = [];

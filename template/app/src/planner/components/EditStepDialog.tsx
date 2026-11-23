@@ -64,8 +64,7 @@ export function EditStepDialog({
         description: trimmed !== step.description ? trimmed : undefined,
         plannedMinutes:
           parsedMinutes !== step.plannedMinutes ? parsedMinutes : undefined,
-        startMinute:
-          parsedStart !== step.startMinute ? parsedStart : undefined,
+        startMinute: parsedStart !== step.startMinute ? parsedStart : undefined,
       });
       toast({ title: "Step updated" });
       onOpenChange(false);

@@ -1,11 +1,11 @@
 import { LogOut, UserMinus, Users } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router";
 import {
   changeWorkspaceMemberRole,
   removeWorkspaceMember,
 } from "wasp/client/operations";
 import { routes } from "wasp/client/router";
-import { useNavigate } from "react-router";
 import { Avatar, AvatarFallback } from "../../client/components/ui/avatar";
 import { Button } from "../../client/components/ui/button";
 import {
@@ -238,9 +238,8 @@ export function MembersPanel({
         title="Remove member?"
         description={
           <p>
-            {memberToRemove ? getUserLabel(memberToRemove) : "This member"}{" "}
-            will lose access to {workspaceName}. Their open tasks become
-            unassigned.
+            {memberToRemove ? getUserLabel(memberToRemove) : "This member"} will
+            lose access to {workspaceName}. Their open tasks become unassigned.
           </p>
         }
         confirmLabel="Remove"

@@ -32,11 +32,7 @@ import { Label } from "../client/components/ui/label";
 import { toast } from "../client/hooks/use-toast";
 import { AddStepForm } from "./components/AddStepForm";
 import { downloadPlanIcs } from "./components/downloadIcs";
-import {
-  EmptyState,
-  ErrorState,
-  LoadingState,
-} from "./components/PageStates";
+import { EmptyState, ErrorState, LoadingState } from "./components/PageStates";
 import { PlanSummaryBar } from "./components/PlanSummaryBar";
 import { StepList } from "./components/StepList";
 import { TaskListEditor } from "./components/TaskListEditor";
@@ -290,7 +286,11 @@ export function PlannerPage() {
                 <span className="text-muted-foreground">
                   Get a browser notification when each step starts.
                 </span>
-                <Button size="sm" variant="secondary" onClick={requestPermission}>
+                <Button
+                  size="sm"
+                  variant="secondary"
+                  onClick={requestPermission}
+                >
                   <Bell /> Enable browser reminders
                 </Button>
               </div>
@@ -325,7 +325,10 @@ export function PlannerPage() {
                 }
                 action={
                   openTaskCount > 0 ? (
-                    <Button onClick={() => handleGenerate()} disabled={!canGenerate}>
+                    <Button
+                      onClick={() => handleGenerate()}
+                      disabled={!canGenerate}
+                    >
                       {isGenerating ? (
                         <Loader2 className="animate-spin" />
                       ) : (

@@ -36,11 +36,7 @@ import {
 } from "./lib/scheduling";
 import { computePeriodStats, computeStreak, summarizeSteps } from "./lib/stats";
 import { MINUTES_PER_DAY, minutesBetween } from "./lib/time";
-import type {
-  PlanListPage,
-  PlannerStats,
-  PlanWithSteps,
-} from "./types";
+import type { PlanListPage, PlannerStats, PlanWithSteps } from "./types";
 
 const MAX_RANGE_DAYS = 92;
 const MAX_STEPS_PER_PLAN = 100;
@@ -49,7 +45,11 @@ const dateKeySchema = z
   .string()
   .refine(isValidDateKey, { message: "Expected a date in YYYY-MM-DD format" });
 const idSchema = z.string().nonempty();
-const minuteOfDaySchema = z.number().int().min(0).max(MINUTES_PER_DAY - 1);
+const minuteOfDaySchema = z
+  .number()
+  .int()
+  .min(0)
+  .max(MINUTES_PER_DAY - 1);
 const durationSchema = z.number().int().min(1).max(MINUTES_PER_DAY);
 
 const stepsOrderBy = { orderBy: { position: "asc" } } as const;
@@ -87,7 +87,8 @@ function stoppedTimerData(step: PlanStep, now: Date) {
   if (!step.timerStartedAt) return {};
   return {
     timerStartedAt: null,
-    actualMinutes: step.actualMinutes + minutesBetween(step.timerStartedAt, now),
+    actualMinutes:
+      step.actualMinutes + minutesBetween(step.timerStartedAt, now),
   };
 }
 
@@ -313,7 +314,10 @@ export const addPlanStep: AddPlanStep<
   PlanStep
 > = async (rawArgs, context) => {
   const user = requireUser(context.user);
-  const args = ensureArgsSchemaOrThrowHttpError(addPlanStepInputSchema, rawArgs);
+  const args = ensureArgsSchemaOrThrowHttpError(
+    addPlanStepInputSchema,
+    rawArgs,
+  );
 
   const plan = await context.entities.Plan.findFirst({
     where: { id: args.planId, userId: user.id },
@@ -323,7 +327,10 @@ export const addPlanStep: AddPlanStep<
     throw new HttpError(404, "Plan not found");
   }
   if (plan.steps.length >= MAX_STEPS_PER_PLAN) {
-    throw new HttpError(400, `A plan can have at most ${MAX_STEPS_PER_PLAN} steps`);
+    throw new HttpError(
+      400,
+      `A plan can have at most ${MAX_STEPS_PER_PLAN} steps`,
+    );
   }
 
   const lastStep = plan.steps.at(-1);

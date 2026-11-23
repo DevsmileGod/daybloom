@@ -1,4 +1,4 @@
-import { formatMinutesAsClock, formatDuration } from "../planner/lib/time";
+import { formatDuration, formatMinutesAsClock } from "../planner/lib/time";
 
 export interface RemindableStep {
   id: string;

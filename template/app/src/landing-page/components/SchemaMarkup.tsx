@@ -8,7 +8,8 @@ const schema = {
       "@type": "SoftwareApplication",
       "@id": "https://your-saas-app.com/#software",
       name: "Daybloom",
-      description: "Daybloom turns your to-do list into a realistic, AI-planned day: tasks broken into timed, prioritized steps that fit the hours you actually have.",
+      description:
+        "Daybloom turns your to-do list into a realistic, AI-planned day: tasks broken into timed, prioritized steps that fit the hours you actually have.",
       url: "https://your-saas-app.com",
       applicationCategory: "BusinessApplication",
       operatingSystem: "Cross-platform",
@@ -24,7 +25,8 @@ const schema = {
       "@id": "https://your-saas-app.com/#website",
       url: "https://your-saas-app.com",
       name: "Daybloom",
-      description: "Daybloom turns your to-do list into a realistic, AI-planned day: tasks broken into timed, prioritized steps that fit the hours you actually have.",
+      description:
+        "Daybloom turns your to-do list into a realistic, AI-planned day: tasks broken into timed, prioritized steps that fit the hours you actually have.",
     },
   ],
 };

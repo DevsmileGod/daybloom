@@ -39,8 +39,12 @@ import { RoleBadge } from "./components/RoleBadge";
 import type { WorkspaceSummary } from "./operations";
 
 export function WorkspacesPage() {
-  const { data: workspaces, isLoading, error, refetch } =
-    useQuery(getMyWorkspaces);
+  const {
+    data: workspaces,
+    isLoading,
+    error,
+    refetch,
+  } = useQuery(getMyWorkspaces);
   const [isCreateOpen, setIsCreateOpen] = useState(false);
 
   const hasWorkspaces = !!workspaces && workspaces.length > 0;
@@ -78,11 +82,7 @@ export function WorkspacesPage() {
               <p className="text-muted-foreground text-sm">
                 {getErrorMessage(error)}
               </p>
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => refetch()}
-              >
+              <Button type="button" variant="outline" onClick={() => refetch()}>
                 Try again
               </Button>
             </CardContent>

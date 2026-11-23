@@ -94,7 +94,7 @@ Optionally seed the database with fake users: `wasp db seed`.
 
 ```sh
 cd template/app
-wasp test client run   # Vitest unit tests (src/**/*.test.ts)
+wasp test client run # Vitest unit tests (src/**/*.test.ts)
 ```
 
 End-to-end tests live in `template/e2e-tests` (see its README).

@@ -147,7 +147,7 @@ export function StepRow({
         <label
           htmlFor={checkboxId}
           className={cn(
-            "text-foreground mt-1 block cursor-pointer text-sm leading-snug break-words",
+            "text-foreground mt-1 block cursor-pointer break-words text-sm leading-snug",
             step.isDone && "text-muted-foreground line-through",
           )}
         >

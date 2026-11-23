@@ -72,7 +72,7 @@ export function StepBlock({
       onKeyDown={handleKeyDown}
       {...dragProps}
       className={cn(
-        "text-foreground focus-visible:ring-ring absolute cursor-grab overflow-hidden rounded-md border-l-4 px-1.5 text-left text-xs shadow-sm transition-colors select-none focus-visible:z-20 focus-visible:ring-2 focus-visible:outline-none active:cursor-grabbing",
+        "text-foreground focus-visible:ring-ring absolute cursor-grab select-none overflow-hidden rounded-md border-l-4 px-1.5 text-left text-xs shadow-sm transition-colors focus-visible:z-20 focus-visible:outline-none focus-visible:ring-2 active:cursor-grabbing",
         getPriorityClasses(step.taskPriority),
         isCompact ? "py-0.5" : "py-1",
         step.isDone && "opacity-60",
@@ -96,7 +96,7 @@ export function StepBlock({
         </p>
       ) : (
         <>
-          <p className="text-muted-foreground flex items-center gap-1 truncate leading-4 tabular-nums">
+          <p className="text-muted-foreground flex items-center gap-1 truncate tabular-nums leading-4">
             {step.isDone && (
               <CheckCircle2 className="text-success size-3 shrink-0" />
             )}
@@ -104,7 +104,7 @@ export function StepBlock({
           </p>
           <p
             className={cn(
-              "line-clamp-2 leading-4 font-medium break-words",
+              "line-clamp-2 break-words font-medium leading-4",
               step.isDone && "line-through",
             )}
           >

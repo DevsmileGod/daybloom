@@ -19,11 +19,7 @@ import { Textarea } from "../../client/components/ui/textarea";
 import { getErrorMessage } from "../../client/errors";
 import { toast } from "../../client/hooks/use-toast";
 import { formatDateKey } from "../lib/dates";
-import {
-  formatMinutesAsClock,
-  MINUTES_PER_DAY,
-  parseClock,
-} from "../lib/time";
+import { formatMinutesAsClock, MINUTES_PER_DAY, parseClock } from "../lib/time";
 
 const MAX_DESCRIPTION_LENGTH = 500;
 
