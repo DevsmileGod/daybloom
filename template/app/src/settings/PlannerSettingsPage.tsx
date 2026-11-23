@@ -51,7 +51,7 @@ interface PlannerSettingsData {
   hasEmail: boolean;
 }
 
-export function SettingsPage() {
+export function PlannerSettingsPage() {
   const {
     data: settings,
     isLoading,

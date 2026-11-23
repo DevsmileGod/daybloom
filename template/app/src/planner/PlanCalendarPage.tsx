@@ -64,7 +64,7 @@ interface SelectedStep {
   date: DateKey;
 }
 
-export function CalendarPage() {
+export function PlanCalendarPage() {
   const [storedView, setStoredView] = useLocalStorage<CalendarView>(
     "daybloom.calendar.view",
     getInitialView(),
