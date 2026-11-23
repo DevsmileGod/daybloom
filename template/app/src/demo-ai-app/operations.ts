@@ -71,6 +71,17 @@ export const generateGptResponse: GenerateGptResponse<
 
 const createTaskInputSchema = z.object({
   description: z.string().nonempty(),
+  /** Estimated hours, e.g. "1.5". Defaults to the column default ("1"). */
+  time: z
+    .string()
+    .refine(
+      (value) => {
+        const hours = Number.parseFloat(value);
+        return Number.isFinite(hours) && hours > 0 && hours <= 24;
+      },
+      { message: "Time must be between 0 and 24 hours" },
+    )
+    .optional(),
 });
 
 type CreateTaskInput = z.infer<typeof createTaskInputSchema>;
@@ -83,7 +94,7 @@ export const createTask: CreateTask<CreateTaskInput, Task> = async (
     throw new HttpError(401);
   }
 
-  const { description } = ensureArgsSchemaOrThrowHttpError(
+  const { description, time } = ensureArgsSchemaOrThrowHttpError(
     createTaskInputSchema,
     rawArgs,
   );
@@ -91,6 +102,7 @@ export const createTask: CreateTask<CreateTaskInput, Task> = async (
   const task = await context.entities.Task.create({
     data: {
       description,
+      time,
       user: { connect: { id: context.user.id } },
     },
   });
