@@ -35,7 +35,7 @@ const task2 = "Build SaaS app draft";
 test("User can make 3 AI schedule generations", async () => {
   test.slow(); // Use a longer timeout time in case OpenAI is slow to respond
 
-  expect(page.url()).toContain("/demo-app");
+  await page.goto("/demo-app");
   await page.fill('input[id="description"]', task1);
   await page.click('button:has-text("Add task")');
   await expect(page.getByText(task1)).toBeVisible();

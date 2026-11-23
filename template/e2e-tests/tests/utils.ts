@@ -24,7 +24,7 @@ export const logUserIn = async ({ page, user }: { page: Page; user: User }) => {
     page.click('button:has-text("Log in")'),
   ]);
 
-  await page.waitForURL("**/demo-app");
+  await page.waitForURL("**/planner");
 };
 
 export const signUserUp = async ({
