@@ -20,6 +20,7 @@ import {
 import { PlanDetailPage } from "./PlanDetailPage" with { type: "ref" };
 import { PlanHistoryPage } from "./PlanHistoryPage" with { type: "ref" };
 import { PlannerPage } from "./PlannerPage" with { type: "ref" };
+import { StatsPage } from "./StatsPage" with { type: "ref" };
 
 export const plannerSpec: Spec = [
   route("PlannerRoute", "/planner", page(PlannerPage, { authRequired: true })),
@@ -33,6 +34,7 @@ export const plannerSpec: Spec = [
     "/plans/:planId",
     page(PlanDetailPage, { authRequired: true }),
   ),
+  route("StatsRoute", "/stats", page(StatsPage, { authRequired: true })),
 
   query(getPlanForDate, { entities: ["Plan", "PlanStep"] }),
   query(getPlanById, { entities: ["Plan", "PlanStep"] }),
