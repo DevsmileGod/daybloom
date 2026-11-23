@@ -26,7 +26,10 @@ export async function withCreditCharge<T>(
       data: { credits: { decrement: 1 } },
     });
     if (reservedCredits === 0) {
-      throw new HttpError(402, "User has no subscription and is out of credits");
+      throw new HttpError(
+        402,
+        "User has no subscription and is out of credits",
+      );
     }
   }
 

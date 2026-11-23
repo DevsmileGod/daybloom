@@ -49,7 +49,10 @@ export function CalendarGrid({
   const windowStartMinute = startHour * 60;
   const hourCount = endHour - startHour;
   const gridHeight = hourCount * HOUR_HEIGHT_PX;
-  const hours = Array.from({ length: hourCount }, (_, index) => startHour + index);
+  const hours = Array.from(
+    { length: hourCount },
+    (_, index) => startHour + index,
+  );
   const isWeek = days.length > 1;
 
   const gridStyle: CSSProperties = {
@@ -130,7 +133,9 @@ export function CalendarGrid({
                     )}
                     <div
                       className="border-border/50 absolute inset-x-0 border-t border-dashed"
-                      style={{ top: index * HOUR_HEIGHT_PX + HOUR_HEIGHT_PX / 2 }}
+                      style={{
+                        top: index * HOUR_HEIGHT_PX + HOUR_HEIGHT_PX / 2,
+                      }}
                     />
                   </div>
                 ))}

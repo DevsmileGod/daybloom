@@ -26,7 +26,9 @@ export function PlanSummaryBar({
   const percent = Math.round(summary.completionRate * 100);
 
   return (
-    <div className={cn("bg-muted/40 space-y-3 rounded-lg border p-4", className)}>
+    <div
+      className={cn("bg-muted/40 space-y-3 rounded-lg border p-4", className)}
+    >
       <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
         <SummaryItem
           icon={<CheckCircle2 className="text-success" />}

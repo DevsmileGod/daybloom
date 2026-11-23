@@ -26,7 +26,9 @@ import {
   validateRecurrenceRule,
 } from "./recurrence";
 
-export type PlanTemplateWithItems = PlanTemplate & { items: PlanTemplateItem[] };
+export type PlanTemplateWithItems = PlanTemplate & {
+  items: PlanTemplateItem[];
+};
 
 const MAX_RECURRING_TASKS = 50;
 const MAX_TEMPLATES = 30;

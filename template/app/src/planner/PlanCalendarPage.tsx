@@ -23,6 +23,7 @@ import { Input } from "../client/components/ui/input";
 import { getErrorMessage } from "../client/errors";
 import { useLocalStorage } from "../client/hooks/useLocalStorage";
 import { cn } from "../client/utils";
+import { CalendarGrid } from "./calendar/CalendarGrid";
 import {
   applyStartOverrides,
   DEFAULT_WINDOW_END_HOUR,
@@ -32,7 +33,6 @@ import {
   isCalendarView,
   type CalendarView,
 } from "./calendar/calendarLayout";
-import { CalendarGrid } from "./calendar/CalendarGrid";
 import { StepDialog } from "./calendar/StepDialog";
 import { useDragReschedule } from "./calendar/useDragReschedule";
 import {
@@ -64,7 +64,7 @@ interface SelectedStep {
   date: DateKey;
 }
 
-export function CalendarPage() {
+export function PlanCalendarPage() {
   const [storedView, setStoredView] = useLocalStorage<CalendarView>(
     "daybloom.calendar.view",
     getInitialView(),
@@ -128,9 +128,9 @@ export function CalendarPage() {
   );
 
   const selectedStep = selected
-    ? (stepsByDay.get(selected.date)?.find(
-        (step) => step.id === selected.stepId,
-      ) ?? null)
+    ? (stepsByDay
+        .get(selected.date)
+        ?.find((step) => step.id === selected.stepId) ?? null)
     : null;
 
   const stepDays = view === "week" ? 7 : 1;

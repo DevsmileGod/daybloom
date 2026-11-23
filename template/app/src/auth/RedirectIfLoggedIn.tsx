@@ -6,7 +6,7 @@ import { routes } from "wasp/client/router";
 
 export function RedirectIfLoggedIn({
   children,
-  to = routes.DemoAppRoute.to,
+  to = routes.PlannerRoute.to,
 }: {
   children: ReactNode;
   to?: string;

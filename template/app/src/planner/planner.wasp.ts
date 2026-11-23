@@ -1,6 +1,5 @@
 import { action, page, query, route, type Spec } from "@wasp/spec";
 
-import { CalendarPage } from "./CalendarPage" with { type: "ref" };
 import {
   addPlanStep,
   deletePlan,
@@ -18,6 +17,7 @@ import {
   updatePlanNote,
   updatePlanStep,
 } from "./operations" with { type: "ref" };
+import { PlanCalendarPage } from "./PlanCalendarPage" with { type: "ref" };
 import { PlanDetailPage } from "./PlanDetailPage" with { type: "ref" };
 import { PlanHistoryPage } from "./PlanHistoryPage" with { type: "ref" };
 import { PlannerPage } from "./PlannerPage" with { type: "ref" };
@@ -35,7 +35,11 @@ export const plannerSpec: Spec = [
     "/plans/:planId",
     page(PlanDetailPage, { authRequired: true }),
   ),
-  route("CalendarRoute", "/calendar", page(CalendarPage, { authRequired: true })),
+  route(
+    "CalendarRoute",
+    "/calendar",
+    page(PlanCalendarPage, { authRequired: true }),
+  ),
   route("StatsRoute", "/stats", page(StatsPage, { authRequired: true })),
 
   query(getPlanForDate, { entities: ["Plan", "PlanStep"] }),

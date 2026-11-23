@@ -6,10 +6,10 @@ import type {
   RotateCalendarFeedToken,
 } from "wasp/server/operations";
 
-export interface CalendarFeedInfo {
+export type CalendarFeedInfo = {
   /** Subscribable URL, or null when the feed is turned off. */
   url: string | null;
-}
+};
 
 export function buildCalendarFeedUrl(token: string): string {
   return `${config.serverUrl}/calendar-feed/${token}`;

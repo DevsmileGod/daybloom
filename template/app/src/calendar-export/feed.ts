@@ -14,7 +14,11 @@ const TOKEN_PATTERN = /^[A-Za-z0-9_-]{20,100}$/;
  * unguessable per-user token instead. Users can rotate or disable it in
  * their settings.
  */
-export const calendarFeed: CalendarFeed = async (request, response, context) => {
+export const calendarFeed: CalendarFeed = async (
+  request,
+  response,
+  context,
+) => {
   const rawToken = String(request.params.token ?? "").replace(/\.ics$/, "");
   if (!TOKEN_PATTERN.test(rawToken)) {
     return response.status(404).send("Not found");

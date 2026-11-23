@@ -207,9 +207,10 @@ export function formatDateKey(
   },
   locale?: string,
 ): string {
-  return new Intl.DateTimeFormat(locale, { ...options, timeZone: "UTC" }).format(
-    parseDateKey(key),
-  );
+  return new Intl.DateTimeFormat(locale, {
+    ...options,
+    timeZone: "UTC",
+  }).format(parseDateKey(key));
 }
 
 /** The browser's / runtime's own IANA time zone, falling back to UTC. */

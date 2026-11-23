@@ -13,8 +13,11 @@ export const marketingNavigationItems: NavigationItem[] = [
   ...staticNavigationItems,
 ] as const;
 
-export const demoNavigationitems: NavigationItem[] = [
-  { name: "AI Scheduler", to: routes.DemoAppRoute.to },
-  { name: "File Upload", to: routes.FileUploadRoute.to },
-  ...staticNavigationItems,
+export const appNavigationItems: NavigationItem[] = [
+  { name: "Today", to: routes.PlannerRoute.to },
+  { name: "Calendar", to: routes.CalendarRoute.to },
+  { name: "History", to: routes.PlanHistoryRoute.to },
+  { name: "Stats", to: routes.StatsRoute.to },
+  { name: "Routines", to: routes.RoutinesRoute.to },
+  { name: "Teams", to: routes.WorkspacesRoute.to },
 ] as const;

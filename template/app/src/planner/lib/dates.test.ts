@@ -83,9 +83,7 @@ describe("week and range helpers", () => {
       "2026-11-21",
       "2026-11-22",
     ]);
-    expect(getDateKeyRange("2026-11-22", "2026-11-22")).toEqual([
-      "2026-11-22",
-    ]);
+    expect(getDateKeyRange("2026-11-22", "2026-11-22")).toEqual(["2026-11-22"]);
     expect(getDateKeyRange("2026-11-22", "2026-11-20")).toEqual([]);
   });
 });
@@ -108,10 +106,16 @@ describe("time zone helpers", () => {
 
   it("reports offsets including daylight saving time", () => {
     expect(
-      getTimeZoneOffsetMinutes(new Date("2026-07-01T12:00:00Z"), "Europe/Berlin"),
+      getTimeZoneOffsetMinutes(
+        new Date("2026-07-01T12:00:00Z"),
+        "Europe/Berlin",
+      ),
     ).toBe(120);
     expect(
-      getTimeZoneOffsetMinutes(new Date("2026-01-15T12:00:00Z"), "Europe/Berlin"),
+      getTimeZoneOffsetMinutes(
+        new Date("2026-01-15T12:00:00Z"),
+        "Europe/Berlin",
+      ),
     ).toBe(60);
     expect(
       getTimeZoneOffsetMinutes(new Date("2026-01-15T12:00:00Z"), "UTC"),
@@ -120,7 +124,11 @@ describe("time zone helpers", () => {
 
   it("converts local wall-clock times to instants", () => {
     expect(
-      localDateTimeToInstant("2026-07-01", 9 * 60, "Europe/Berlin").toISOString(),
+      localDateTimeToInstant(
+        "2026-07-01",
+        9 * 60,
+        "Europe/Berlin",
+      ).toISOString(),
     ).toBe("2026-07-01T07:00:00.000Z");
     expect(
       localDateTimeToInstant(

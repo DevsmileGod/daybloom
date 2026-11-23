@@ -41,11 +41,7 @@ import { Textarea } from "../client/components/ui/textarea";
 import { getStatusCode } from "../client/errors";
 import { toast } from "../client/hooks/use-toast";
 import { downloadPlanIcs } from "./components/downloadIcs";
-import {
-  EmptyState,
-  ErrorState,
-  LoadingState,
-} from "./components/PageStates";
+import { EmptyState, ErrorState, LoadingState } from "./components/PageStates";
 import { PlanSummaryBar } from "./components/PlanSummaryBar";
 import { StepList } from "./components/StepList";
 import { showErrorToast } from "./components/toasts";

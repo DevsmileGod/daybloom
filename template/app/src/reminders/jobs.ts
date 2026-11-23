@@ -63,7 +63,10 @@ export const sendStepRemindersJob: SendStepRemindersJob<
       // Mark first, so a slow or failing email provider never causes the
       // same reminder to be sent twice on the next run.
       await context.entities.PlanStep.updateMany({
-        where: { id: { in: dueSteps.map((step) => step.id) }, remindedAt: null },
+        where: {
+          id: { in: dueSteps.map((step) => step.id) },
+          remindedAt: null,
+        },
         data: { remindedAt: now },
       });
       await emailSender.send({

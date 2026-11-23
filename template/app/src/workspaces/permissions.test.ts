@@ -116,13 +116,21 @@ describe("canEditWorkspaceTask", () => {
   const task = { createdById: "creator", assigneeId: "assignee" };
 
   it("allows the creator, the assignee and owners", () => {
-    expect(canEditWorkspaceTask({ role: "member", userId: "creator", task })).toBe(true);
-    expect(canEditWorkspaceTask({ role: "member", userId: "assignee", task })).toBe(true);
-    expect(canEditWorkspaceTask({ role: "owner", userId: "someone", task })).toBe(true);
+    expect(
+      canEditWorkspaceTask({ role: "member", userId: "creator", task }),
+    ).toBe(true);
+    expect(
+      canEditWorkspaceTask({ role: "member", userId: "assignee", task }),
+    ).toBe(true);
+    expect(
+      canEditWorkspaceTask({ role: "owner", userId: "someone", task }),
+    ).toBe(true);
   });
 
   it("refuses other members", () => {
-    expect(canEditWorkspaceTask({ role: "member", userId: "someone", task })).toBe(false);
+    expect(
+      canEditWorkspaceTask({ role: "member", userId: "someone", task }),
+    ).toBe(false);
     expect(
       canEditWorkspaceTask({
         role: "member",
@@ -155,8 +163,14 @@ describe("invites", () => {
   it("report their status", () => {
     const future = new Date("2026-11-29T12:00:00Z");
     const past = new Date("2026-11-21T12:00:00Z");
-    expect(getInviteStatus({ expiresAt: future, acceptedAt: null }, now)).toBe("pending");
-    expect(getInviteStatus({ expiresAt: past, acceptedAt: null }, now)).toBe("expired");
-    expect(getInviteStatus({ expiresAt: past, acceptedAt: past }, now)).toBe("accepted");
+    expect(getInviteStatus({ expiresAt: future, acceptedAt: null }, now)).toBe(
+      "pending",
+    );
+    expect(getInviteStatus({ expiresAt: past, acceptedAt: null }, now)).toBe(
+      "expired",
+    );
+    expect(getInviteStatus({ expiresAt: past, acceptedAt: past }, now)).toBe(
+      "accepted",
+    );
   });
 });

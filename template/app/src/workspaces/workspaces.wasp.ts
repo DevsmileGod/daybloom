@@ -22,7 +22,11 @@ import { WorkspacePage } from "./WorkspacePage" with { type: "ref" };
 import { WorkspacesPage } from "./WorkspacesPage" with { type: "ref" };
 
 export const workspacesSpec: Spec = [
-  route("WorkspacesRoute", "/teams", page(WorkspacesPage, { authRequired: true })),
+  route(
+    "WorkspacesRoute",
+    "/teams",
+    page(WorkspacesPage, { authRequired: true }),
+  ),
   route(
     "WorkspaceRoute",
     "/teams/:workspaceId",

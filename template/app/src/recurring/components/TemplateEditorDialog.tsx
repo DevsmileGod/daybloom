@@ -1,9 +1,6 @@
 import { Loader2, Plus, X } from "lucide-react";
 import { useRef, useState, type FormEvent } from "react";
-import {
-  createPlanTemplate,
-  updatePlanTemplate,
-} from "wasp/client/operations";
+import { createPlanTemplate, updatePlanTemplate } from "wasp/client/operations";
 import type { PlanTemplate, PlanTemplateItem } from "wasp/entities";
 import { Button } from "../../client/components/ui/button";
 import {
@@ -104,9 +101,7 @@ function TemplateEditorForm({
       return;
     }
     if (trimmedName.length > MAX_TEMPLATE_NAME_LENGTH) {
-      setError(
-        `Keep the name under ${MAX_TEMPLATE_NAME_LENGTH} characters.`,
-      );
+      setError(`Keep the name under ${MAX_TEMPLATE_NAME_LENGTH} characters.`);
       return;
     }
 

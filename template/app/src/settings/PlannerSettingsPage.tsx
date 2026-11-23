@@ -1,12 +1,4 @@
-import {
-  Bell,
-  Check,
-  Copy,
-  Globe,
-  Loader2,
-  Mail,
-  Rss,
-} from "lucide-react";
+import { Bell, Check, Copy, Globe, Loader2, Mail, Rss } from "lucide-react";
 import { useMemo, useRef, useState, type FormEvent } from "react";
 import {
   disableCalendarFeed,
@@ -59,7 +51,7 @@ interface PlannerSettingsData {
   hasEmail: boolean;
 }
 
-export function SettingsPage() {
+export function PlannerSettingsPage() {
   const {
     data: settings,
     isLoading,
@@ -186,8 +178,8 @@ function PlannerSettingsCard({ settings }: { settings: PlannerSettingsData }) {
             <Globe className="size-5" aria-hidden="true" /> Planner
           </CardTitle>
           <CardDescription>
-            Your time zone decides what "today" means and when reminders go
-            out. New plans start at your workday start time.
+            Your time zone decides what "today" means and when reminders go out.
+            New plans start at your workday start time.
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-5">
@@ -403,8 +395,8 @@ function RemindersCard({ settings }: { settings: PlannerSettingsData }) {
           <div className="grid gap-1">
             <p className="text-sm font-medium">Browser notifications</p>
             <p className="text-muted-foreground text-sm">
-              Show a notification on this device when a step starts, while
-              the planner is open in a tab.
+              Show a notification on this device when a step starts, while the
+              planner is open in a tab.
             </p>
             <p className="text-sm" aria-live="polite">
               <BrowserPermissionStatus permission={permission} />
@@ -435,21 +427,18 @@ function BrowserPermissionStatus({
     case "granted":
       return (
         <span className="text-success inline-flex items-center gap-1">
-          <Check className="size-4" aria-hidden="true" /> Allowed on this
-          device
+          <Check className="size-4" aria-hidden="true" /> Allowed on this device
         </span>
       );
     case "denied":
       return (
         <span className="text-destructive">
-          Blocked. Allow notifications for this site in your browser settings
-          to turn them on.
+          Blocked. Allow notifications for this site in your browser settings to
+          turn them on.
         </span>
       );
     case "default":
-      return (
-        <span className="text-muted-foreground">Not allowed yet.</span>
-      );
+      return <span className="text-muted-foreground">Not allowed yet.</span>;
     case "unsupported":
       return (
         <span className="text-muted-foreground">
@@ -527,8 +516,7 @@ function CalendarFeedCard() {
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <Rss className="size-5" aria-hidden="true" /> Calendar
-          subscription
+          <Rss className="size-5" aria-hidden="true" /> Calendar subscription
         </CardTitle>
         <CardDescription>
           Subscribe to your plans from Google Calendar, Apple Calendar or
@@ -563,9 +551,8 @@ function CalendarFeedCard() {
         ) : feed.url === null ? (
           <div className="flex flex-col items-start gap-3">
             <p className="text-muted-foreground text-sm">
-              The feed is off. Turning it on creates a private link that
-              anyone who has it can use to see your plans, so keep it to
-              yourself.
+              The feed is off. Turning it on creates a private link that anyone
+              who has it can use to see your plans, so keep it to yourself.
             </p>
             <Button
               type="button"

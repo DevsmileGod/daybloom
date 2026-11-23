@@ -5,7 +5,7 @@ import { Toaster } from "../client/components/ui/toaster";
 import "./Main.css";
 import { NavBar } from "./components/NavBar/NavBar";
 import {
-  demoNavigationitems,
+  appNavigationItems,
   marketingNavigationItems,
 } from "./components/NavBar/constants";
 import { CookieConsentBanner } from "./components/cookie-consent/Banner";
@@ -25,7 +25,7 @@ export function App() {
 
   const navigationItems = isMarketingPage
     ? marketingNavigationItems
-    : demoNavigationitems;
+    : appNavigationItems;
 
   const shouldDisplayAppNavBar = useMemo(() => {
     return (

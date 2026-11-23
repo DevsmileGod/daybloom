@@ -16,7 +16,13 @@ type TaskDelegate = PrismaClient["task"];
 export async function materializeRecurringTasksForDate(
   recurringTasks: Pick<
     RecurringTask,
-    "id" | "userId" | "description" | "time" | "frequency" | "daysOfWeek" | "isActive"
+    | "id"
+    | "userId"
+    | "description"
+    | "time"
+    | "frequency"
+    | "daysOfWeek"
+    | "isActive"
   >[],
   dateKey: DateKey,
   taskDelegate: TaskDelegate,
@@ -41,7 +47,10 @@ export async function materializeRecurringTasksForDate(
 }
 
 /** Today's date key for a user, falling back to UTC for invalid zones. */
-export function getUserToday(timeZone: string, now: Date = new Date()): DateKey {
+export function getUserToday(
+  timeZone: string,
+  now: Date = new Date(),
+): DateKey {
   try {
     return getLocalDateKey(now, timeZone);
   } catch {

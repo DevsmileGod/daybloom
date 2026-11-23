@@ -1,5 +1,5 @@
 import { Loader2, Pencil, Plus, Repeat, Trash2 } from "lucide-react";
-import { useEffect, useState, type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 import {
   addDueRecurringTasksNow,
   createRecurringTask,
@@ -59,9 +59,13 @@ export function RecurringTasksSection() {
     Record<string, boolean>
   >({});
 
-  useEffect(() => {
+  // Fresh server data replaces the optimistic values. Done during render
+  // rather than in an effect to avoid an extra render pass.
+  const [overridesFor, setOverridesFor] = useState(recurringTasks);
+  if (recurringTasks !== overridesFor) {
+    setOverridesFor(recurringTasks);
     setActiveOverrides({});
-  }, [recurringTasks]);
+  }
 
   const handleToggleActive = async (task: RecurringTask, isActive: boolean) => {
     setActiveOverrides((previous) => ({ ...previous, [task.id]: isActive }));
@@ -138,7 +142,7 @@ export function RecurringTasksSection() {
                 className="flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between"
               >
                 <div className={cn("min-w-0", !isActive && "opacity-60")}>
-                  <p className="text-foreground font-medium break-words">
+                  <p className="text-foreground break-words font-medium">
                     {task.description}
                   </p>
                   <p className="text-muted-foreground text-sm">

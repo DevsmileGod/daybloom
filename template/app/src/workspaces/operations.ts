@@ -45,43 +45,43 @@ import {
 
 //#region Types returned to the client
 
-export interface WorkspaceSummary {
+export type WorkspaceSummary = {
   id: string;
   name: string;
   role: string;
   memberCount: number;
   openTaskCount: number;
   createdAt: Date;
-}
+};
 
-export interface WorkspaceUser {
+export type WorkspaceUser = {
   id: string;
   email: string | null;
   username: string | null;
-}
+};
 
-export interface WorkspaceMemberDetails {
+export type WorkspaceMemberDetails = {
   userId: string;
   role: string;
   joinedAt: Date;
   email: string | null;
   username: string | null;
-}
+};
 
-export interface WorkspaceInviteDetails {
+export type WorkspaceInviteDetails = {
   id: string;
   email: string;
   createdAt: Date;
   expiresAt: Date;
   status: InviteStatus;
-}
+};
 
 export type WorkspaceTaskDetails = WorkspaceTask & {
   assignee: WorkspaceUser | null;
   createdBy: WorkspaceUser;
 };
 
-export interface WorkspaceDetails {
+export type WorkspaceDetails = {
   workspace: Workspace;
   myRole: string;
   myUserId: string;
@@ -89,9 +89,9 @@ export interface WorkspaceDetails {
   /** Only filled for owners. */
   invites: WorkspaceInviteDetails[];
   tasks: WorkspaceTaskDetails[];
-}
+};
 
-export interface WorkspaceInvitePreview {
+export type WorkspaceInvitePreview = {
   workspaceId: string;
   workspaceName: string;
   invitedBy: string;
@@ -100,7 +100,7 @@ export interface WorkspaceInvitePreview {
   /** Whether the logged-in user's email matches the invited email. */
   emailMatches: boolean;
   alreadyMember: boolean;
-}
+};
 
 //#endregion
 
@@ -357,7 +357,8 @@ export const inviteToWorkspace: InviteToWorkspace<
     );
   }
   const isAlreadyMember = workspace.members.some(
-    (member) => member.user.email && normalizeEmail(member.user.email) === email,
+    (member) =>
+      member.user.email && normalizeEmail(member.user.email) === email,
   );
   if (isAlreadyMember) {
     throw new HttpError(400, "That person is already in this workspace");
@@ -453,8 +454,7 @@ export const getWorkspaceInvite: GetWorkspaceInvite<
     invitedBy: displayName(invite.invitedBy),
     email: invite.email,
     status: getInviteStatus(invite),
-    emailMatches:
-      !!user.email && normalizeEmail(user.email) === invite.email,
+    emailMatches: !!user.email && normalizeEmail(user.email) === invite.email,
     alreadyMember: !!membership,
   };
 };
@@ -652,7 +652,11 @@ export const createWorkspaceTask: CreateWorkspaceTask<
   const user = requireUser(context.user);
   const { workspaceId, description, time, assigneeId, dueDate } =
     ensureArgsSchemaOrThrowHttpError(createWorkspaceTaskInputSchema, rawArgs);
-  await requireMembership(context.entities.WorkspaceMember, workspaceId, user.id);
+  await requireMembership(
+    context.entities.WorkspaceMember,
+    workspaceId,
+    user.id,
+  );
   await assertAssigneeIsMember(
     context.entities.WorkspaceMember,
     workspaceId,

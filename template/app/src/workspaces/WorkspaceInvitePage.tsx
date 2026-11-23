@@ -160,8 +160,8 @@ export function WorkspaceInvitePage({ user }: { user: AuthUser }) {
       >
         <p>
           {invite.invitedBy} invited{" "}
-          <span className="text-foreground font-medium">{invite.email}</span>{" "}
-          to {invite.workspaceName}
+          <span className="text-foreground font-medium">{invite.email}</span> to{" "}
+          {invite.workspaceName}
           {user.email ? (
             <>
               , but you're logged in as{" "}
@@ -173,8 +173,8 @@ export function WorkspaceInvitePage({ user }: { user: AuthUser }) {
           .
         </p>
         <p className="mt-2">
-          Log out, log in (or sign up) with {invite.email}, then open the
-          invite link again.
+          Log out, log in (or sign up) with {invite.email}, then open the invite
+          link again.
         </p>
       </InviteState>
     );
@@ -186,11 +186,7 @@ export function WorkspaceInvitePage({ user }: { user: AuthUser }) {
         title={`${invite.invitedBy} invited you to join ${invite.workspaceName}`}
         actions={
           <>
-            <Button
-              type="button"
-              onClick={handleAccept}
-              disabled={isAccepting}
-            >
+            <Button type="button" onClick={handleAccept} disabled={isAccepting}>
               {isAccepting ? (
                 <Loader2 className="animate-spin" aria-hidden="true" />
               ) : (

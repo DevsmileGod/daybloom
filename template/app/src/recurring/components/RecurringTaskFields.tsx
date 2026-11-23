@@ -163,7 +163,7 @@ export function RecurringTaskFields({
                   onClick={() => toggleDay(day)}
                   disabled={disabled}
                   className={cn(
-                    "focus-visible:ring-ring h-9 min-w-12 rounded-md border px-2 text-sm font-medium transition-colors focus-visible:ring-1 focus-visible:outline-none disabled:opacity-50",
+                    "focus-visible:ring-ring h-9 min-w-12 rounded-md border px-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 disabled:opacity-50",
                     isSelected
                       ? "border-primary bg-primary text-primary-foreground"
                       : "bg-background text-foreground hover:bg-muted",

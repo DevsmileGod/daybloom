@@ -23,11 +23,7 @@ import { Label } from "../client/components/ui/label";
 import { Progress } from "../client/components/ui/progress";
 import { useDebounce } from "../client/hooks/useDebounce";
 import { cn } from "../client/utils";
-import {
-  EmptyState,
-  ErrorState,
-  LoadingState,
-} from "./components/PageStates";
+import { EmptyState, ErrorState, LoadingState } from "./components/PageStates";
 import { compareDateKeys, formatDateKey } from "./lib/dates";
 import { summarizeSteps, type PlanSummary } from "./lib/stats";
 import { formatDuration } from "./lib/time";

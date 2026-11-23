@@ -8,15 +8,15 @@ export type PlanListItem = Plan & {
   taskNames: string[];
 };
 
-export interface PlanListPage {
+export type PlanListPage = {
   plans: PlanListItem[];
   /** Pass as `cursor` to load the next page; null when there are no more. */
   nextCursor: string | null;
-}
+};
 
-export interface PlannerStats extends PeriodStats {
+export type PlannerStats = PeriodStats & {
   from: string;
   to: string;
   today: string;
   streak: number;
-}
+};
