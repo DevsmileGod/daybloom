@@ -1,5 +1,5 @@
 import { ListTodo, Loader2, Plus, Trash2 } from "lucide-react";
-import { useEffect, useState, type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 import {
   createTask,
   deleteTask,
@@ -96,8 +96,14 @@ function TaskRow({ task }: { task: Task }) {
   const [hours, setHours] = useState(task.time);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  // Follow server changes unless the user is mid-edit.
-  useEffect(() => setHours(task.time), [task.time]);
+  // Follow changes coming from the server. Adjusting state during render
+  // (instead of in an effect) avoids an extra render pass:
+  // https://react.dev/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes
+  const [syncedTime, setSyncedTime] = useState(task.time);
+  if (task.time !== syncedTime) {
+    setSyncedTime(task.time);
+    setHours(task.time);
+  }
 
   const commitHours = async () => {
     const parsed = Number.parseFloat(hours);
@@ -141,7 +147,7 @@ function TaskRow({ task }: { task: Task }) {
       <label
         htmlFor={checkboxId}
         className={cn(
-          "text-foreground min-w-0 flex-1 cursor-pointer text-sm break-words",
+          "text-foreground min-w-0 flex-1 cursor-pointer break-words text-sm",
           task.isDone && "text-muted-foreground line-through",
         )}
       >
