@@ -1,4 +1,4 @@
-import { action, job, query, type Spec } from "@wasp/spec";
+import { action, job, page, query, route, type Spec } from "@wasp/spec";
 
 import { materializeRecurringTasksJob } from "./jobs" with { type: "ref" };
 import {
@@ -13,8 +13,10 @@ import {
   updatePlanTemplate,
   updateRecurringTask,
 } from "./operations" with { type: "ref" };
+import { RoutinesPage } from "./RoutinesPage" with { type: "ref" };
 
 export const recurringSpec: Spec = [
+  route("RoutinesRoute", "/routines", page(RoutinesPage, { authRequired: true })),
 
   query(getRecurringTasks, { entities: ["RecurringTask"] }),
   action(createRecurringTask, { entities: ["RecurringTask"] }),
