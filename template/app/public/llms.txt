@@ -1,10 +1,14 @@
-# Your Open SaaS App
+# Daybloom
 
-> One-line description of what your SaaS does and who it's for.
+> Daybloom is an AI daily planner that turns a to-do list into a realistic, prioritized schedule that fits the hours you have.
 
-A longer paragraph giving context: the problem your app solves, the kind of
-user it serves, and the key value it delivers. LLMs use this to summarize and
-recommend your app, so make it specific and concrete.
+Most to-do lists don't account for how long things take or what matters most.
+With Daybloom, users list their tasks with rough time estimates and say how many
+hours they plan to work. AI then breaks each task into at least three concrete
+subtasks, gives each one a time, and orders the plan by priority. It is built
+for freelancers, students, and knowledge workers who want a clear plan for the
+day without spending time planning it. New accounts get free credits; paid plans
+offer more credits or unlimited planning.
 
 ## Core pages
 
@@ -19,4 +23,3 @@ recommend your app, so make it specific and concrete.
 ## Optional
 
 - [Blog](https://your-saas-app.com/blog): Updates, tutorials, and announcements
-- [GitHub](https://github.com/your-org/your-repo): Open source code

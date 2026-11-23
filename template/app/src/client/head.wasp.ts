@@ -3,15 +3,15 @@ import { type App } from "@wasp/spec";
 export const head: App["head"] = [
   "<link rel='icon' href='/favicon.ico' />",
 
-  "<meta name='description' content='Your apps main description and features.' />",
-  "<meta name='author' content='Your (App) Name' />",
-  "<meta name='keywords' content='saas, solution, product, app, service' />",
+  "<meta name='description' content='Daybloom turns your to-do list into a realistic, AI-planned day: tasks broken into timed, prioritized steps that fit the hours you actually have.' />",
+  "<meta name='author' content='Mitchell Gray' />",
+  "<meta name='keywords' content='ai planner, daily planner, schedule, productivity, to-do list, time blocking' />",
 
   "<meta property='og:type' content='website' />",
-  "<meta property='og:title' content='Your Open SaaS App' />",
-  "<meta property='og:site_name' content='Your Open SaaS App' />",
+  "<meta property='og:title' content='Daybloom' />",
+  "<meta property='og:site_name' content='Daybloom' />",
   "<meta property='og:url' content='https://your-saas-app.com' />",
-  "<meta property='og:description' content='Your apps main description and features.' />",
+  "<meta property='og:description' content='Daybloom turns your to-do list into a realistic, AI-planned day: tasks broken into timed, prioritized steps that fit the hours you actually have.' />",
   "<meta property='og:image' content='https://your-saas-app.com/public-banner.webp' />",
   "<meta name='twitter:image' content='https://your-saas-app.com/public-banner.webp' />",
   "<meta name='twitter:image:width' content='800' />",
