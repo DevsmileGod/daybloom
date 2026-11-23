@@ -1,0 +1,96 @@
+import { OrderStatus } from "@polar-sh/sdk/models/components/orderstatus.js";
+import {
+  type CreateCheckoutSessionArgs,
+  type FetchCustomerPortalUrlArgs,
+  type PaymentProcessor,
+} from "../paymentProcessor";
+import { getPaymentProcessorPlanId } from "../paymentProcessorPlans";
+import {
+  fetchUserPaymentProcessorUserId,
+  updateUserPaymentProcessorUserId,
+} from "../user";
+import {
+  createPolarCheckoutSession,
+  ensurePolarCustomer,
+} from "./checkoutUtils";
+import { polarApi } from "./polarApi";
+import { fetchPolarSubscriptionState } from "./subscriptionState";
+import { polarMiddlewareConfigFn, polarWebhook } from "./webhook";
+
+export const polarPaymentProcessor: PaymentProcessor = {
+  id: "polar",
+  createCheckoutSession: async ({
+    userId,
+    userEmail,
+    paymentPlan,
+    prismaUserDelegate,
+  }: CreateCheckoutSessionArgs) => {
+    let customerId = await fetchUserPaymentProcessorUserId(
+      userId,
+      prismaUserDelegate,
+    );
+    if (!customerId) {
+      const customer = await ensurePolarCustomer(userId, userEmail);
+      customerId = customer.id;
+      await updateUserPaymentProcessorUserId(
+        { userId, paymentProcessorUserId: customerId },
+        prismaUserDelegate,
+      );
+    }
+
+    const checkoutSession = await createPolarCheckoutSession({
+      productId: getPaymentProcessorPlanId(paymentPlan),
+      customerId,
+    });
+
+    return {
+      session: {
+        kind: "redirect",
+        id: checkoutSession.id,
+        url: checkoutSession.url,
+      },
+    };
+  },
+  fetchCustomerPortalUrl: async ({
+    userId,
+    prismaUserDelegate,
+  }: FetchCustomerPortalUrlArgs) => {
+    const paymentProcessorUserId = await fetchUserPaymentProcessorUserId(
+      userId,
+      prismaUserDelegate,
+    );
+
+    if (!paymentProcessorUserId) {
+      return null;
+    }
+
+    const customerSession = await polarApi.customerSessions.create({
+      customerId: paymentProcessorUserId,
+    });
+
+    return customerSession.customerPortalUrl;
+  },
+  fetchSubscriptionState: fetchPolarSubscriptionState,
+  webhook: polarWebhook,
+  webhookMiddlewareConfigFn: polarMiddlewareConfigFn,
+  fetchTotalRevenue: async () => {
+    let totalRevenue = 0;
+
+    const result = await polarApi.orders.list({
+      limit: 100,
+    });
+
+    for await (const page of result) {
+      const orders = page.result.items || [];
+
+      for (const order of orders) {
+        if (order.status === OrderStatus.Paid && order.totalAmount > 0) {
+          totalRevenue += order.totalAmount;
+        }
+      }
+    }
+
+    // Revenue is in cents so we convert to dollars (or your main currency unit)
+    return totalRevenue / 100;
+  },
+};

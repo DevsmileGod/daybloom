@@ -1,0 +1,73 @@
+--- template/app/src/payment/user.ts
++++ opensaas-sh/app/src/payment/user.ts
+@@ -1,7 +1,7 @@
+ import { User } from "wasp/entities";
+ import { PrismaClient } from "wasp/server";
+ 
+-export async function fetchUserPaymentProcessorUserId(
++export async function fetchUserStripeId(
+   userId: User["id"],
+   prismaUserDelegate: PrismaClient["user"],
+ ): Promise<string | null> {
+@@ -10,20 +10,20 @@
+       id: userId,
+     },
+     select: {
+-      paymentProcessorUserId: true,
++      stripeId: true,
+     },
+   });
+ 
+-  return user.paymentProcessorUserId;
++  return user.stripeId;
+ }
+ 
+-interface UpdateUserPaymentProcessorUserIdArgs {
++interface UpdateUserStripeIdArgs {
+   userId: User["id"];
+-  paymentProcessorUserId: NonNullable<User["paymentProcessorUserId"]>;
++  stripeId: NonNullable<User["stripeId"]>;
+ }
+ 
+-export function updateUserPaymentProcessorUserId(
+-  { userId, paymentProcessorUserId }: UpdateUserPaymentProcessorUserIdArgs,
++export function updateUserStripeId(
++  { userId, stripeId }: UpdateUserStripeIdArgs,
+   prismaUserDelegate: PrismaClient["user"],
+ ): Promise<User> {
+   return prismaUserDelegate.update({
+@@ -31,13 +31,13 @@
+       id: userId,
+     },
+     data: {
+-      paymentProcessorUserId,
++      stripeId,
+     },
+   });
+ }
+ 
+ interface RecordUserPaymentArgs {
+-  paymentProcessorUserId: NonNullable<User["paymentProcessorUserId"]>;
++  stripeId: NonNullable<User["stripeId"]>;
+   datePaid: Date;
+   // `0` for subscription payments.
+   numOfCreditsPurchased: number;
+@@ -48,16 +48,12 @@
+  * (if not a subscription payment).
+  */
+ export function recordUserPayment(
+-  {
+-    paymentProcessorUserId,
+-    datePaid,
+-    numOfCreditsPurchased,
+-  }: RecordUserPaymentArgs,
++  { stripeId, datePaid, numOfCreditsPurchased }: RecordUserPaymentArgs,
+   userDelegate: PrismaClient["user"],
+ ): Promise<User> {
+   return userDelegate.update({
+     where: {
+-      paymentProcessorUserId,
++      stripeId,
+     },
+     data: {
+       credits: { increment: numOfCreditsPurchased },

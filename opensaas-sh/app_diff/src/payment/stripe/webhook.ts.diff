@@ -1,0 +1,29 @@
+--- template/app/src/payment/stripe/webhook.ts
++++ opensaas-sh/app/src/payment/stripe/webhook.ts
+@@ -2,7 +2,7 @@
+ import express from "express";
+ import type { Stripe } from "stripe";
+ import { env, type MiddlewareConfigFn } from "wasp/server";
+-import { type PaymentsWebhook } from "wasp/server/api";
++import { type StripeWebhook } from "wasp/server/api";
+ import { UnhandledWebhookEventError } from "../errors";
+ import { findPaymentPlanIdByPaymentProcessorPlanId } from "../paymentProcessorPlans";
+ import { getPaymentPlanCreditsAmount } from "../plans";
+@@ -26,7 +26,7 @@
+   return middlewareConfig;
+ };
+ 
+-export const stripeWebhook: PaymentsWebhook = async (
++export const stripeWebhook: StripeWebhook = async (
+   request,
+   response,
+   context,
+@@ -154,7 +154,7 @@
+ ): Promise<void> {
+   await recordUserPayment(
+     {
+-      paymentProcessorUserId: customerId,
++      stripeId: customerId,
+       datePaid: getInvoicePaidAtDate(invoice),
+       numOfCreditsPurchased: getNumOfCreditsPurchased(invoice),
+     },
